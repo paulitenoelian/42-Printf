@@ -5,100 +5,72 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: npaulite <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/08 19:01:10 by npaulite          #+#    #+#             */
-/*   Updated: 2018/10/08 19:04:52 by npaulite         ###   ########.fr       */
+/*   Created: 2018/10/12 13:01:47 by npaulite          #+#    #+#             */
+/*   Updated: 2018/10/13 13:45:13 by npaulite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
-
+# define _MIN(a, b) a < b ? a : b
+# define _MAX(a, b) a > b ? a : b
+# define _SCR1 p->size == 'H' || p->size == 'h'
+# define _SCR2 p->size == 'H' || p->size == 'h' || p->size == 'l'
+# include "../libft/includes/libft.h"
 # include <stdlib.h>
-# include <unistd.h>
 # include <stdarg.h>
+# include <stddef.h>
 # include <inttypes.h>
 # include <limits.h>
-# include "../libft/includes/libft.h"
 
-typedef struct	s_out
+typedef struct		s_p
 {
-	char	*out;
-	wchar_t	*u_out;
-	int		ch_zero;
-	int		below_zero;
-}				t_out;
+	int				hash : 1;
+	int				zero : 1;
+	int				minus : 1;
+	int				plus : 1;
+	int				space : 1;
+	int				is_width : 1;
+	int				is_precision : 1;
+	int				width;
+	int				precision;
+	char			size;
+}					t_p;
 
-typedef struct	s_dat
-{
-	size_t	width;
-	size_t	prscn;
-	size_t	out_len;
-	ssize_t	w_crctn;
-	size_t	var_type;
-	char	var;
-	char	error;
-}				t_dat;
+int					ft_printf(const char *format, ...);
 
-typedef struct	s_flag
-{
-	int hash;
-	int minus;
-	int plus;
-	int zero;
-	int space;
-}				t_flag;
+char				*ft_check_flags(char **str, t_p *p);
+char				*ft_check_width(char **str, t_p *p, va_list *ap);
+char				*ft_check_precision(char **str, t_p *p, va_list *ap,\
+										int pr);
+char				*ft_check_size(char **str, t_p *p, char c);
 
-typedef struct	s_lst
-{
-	t_out			out;
-	t_dat			data;
-	t_flag			flag;
-	struct s_lst	*next;
-}				t_lst;
+int					ft_max(int a, int b);
+int					ft_min(int a, int b);
+void				ft_space(int len, int width, char c);
+uintmax_t			ft_len(uintmax_t j, char *base);
+uintmax_t			ft_len_j(uintmax_t j, char *base, char *front, t_p *p);
+void				get_u(va_list *ap, t_p *p, uintmax_t *nbr);
 
-t_lst			*lst_init(void);
-void			lst_free(t_lst **list);
-int				check_flag(const char *s, t_lst *list);
-int				check_width(const char *s, t_lst *list, va_list *ap);
-int				check_prcsn(const char *s, t_lst *list, va_list *ap);
-int				check_var_size(const char *s, t_lst *list);
-int				check_var(const char *s, t_lst *list);
-int				get_len(unsigned *i, const char *f, t_lst **l, va_list *ap);
-char			*ft_itoa_base(size_t value, int base, int u);
-int				set_width(t_lst *list);
-int				set_precision(t_lst *list);
-int				process_format(const char *format, t_lst *list, va_list *ap);
-int				ft_printf(const char *format, ...);
-int				digit_dec(t_lst *list, va_list *ap);
-int				type_handler(t_lst *list, va_list *ap);
-int				print_dec(t_lst *list);
-int				add_width(t_lst *list);
-int				add_prcsn(t_lst *list);
-size_t			print_type(t_lst *list);
-int				digit_hex(t_lst *list, va_list *ap);
-int				print_hex(t_lst *list);
-int				digit_unsigned(t_lst *list, va_list *ap);
-int				print_unsigned(t_lst *list);
-int				digit_oct(t_lst *list, va_list *ap);
-int				print_oct(t_lst *list);
-int				print_ptr(t_lst *list);
-int				digit_ptr(t_lst *list, va_list *ap);
-int				percent(t_lst *list, va_list *ap);
-int				print_percent(t_lst *list);
-int				print_char(t_lst *list);
-int				char_c(t_lst *list, va_list *ap);
-int				print_char_c(t_lst *list);
-int				char_c_c(t_lst *list, va_list *ap);
-int				print_char_string(t_lst *list);
-int				char_string(t_lst *list, va_list *ap);
-char			*uni_proc(unsigned int *str, ssize_t precision, int zero);
-int				unicode_string(t_lst *list, va_list *ap);
-int				error_input(t_lst *list, va_list *ap);
-int				print_error(t_lst *list);
-int				count_bits(unsigned int c);
-int				wrong_var(const char *s, t_lst *list);
-int				count_bytes(unsigned int c);
-void			star_width(t_lst *list, va_list *ap, const char *s, size_t *i);
-void			star_prcn(t_lst *list, va_list *ap, const char *s, size_t *i);
+intmax_t			ft_null(char **str, va_list *ap, t_p *p);
+intmax_t			ft_printf_procent(char **str, va_list *ap, t_p *p);
+intmax_t			ft_printf_int(char **str, va_list *ap, t_p *p);
+intmax_t			ft_printf_long(char **str, va_list *ap, t_p *p);
+intmax_t			ft_printf_char(char **str, va_list *ap, t_p *p);
+intmax_t			ft_printf_wchar(char **str, va_list *ap, t_p *p);
+intmax_t			ft_printf_str(char **str, va_list *ap, t_p *p);
+intmax_t			ft_printf_wstr(char **str, va_list *ap, t_p *p);
+intmax_t			ft_printf_hex(char **str, va_list *ap, t_p *p);
+intmax_t			ft_printf_octal(char **str, va_list *ap, t_p *p);
+intmax_t			ft_printf_unsigned(char **str, va_list *ap, t_p *p);
+intmax_t			ft_printf_void(char **str, va_list *ap, t_p *p);
+
+typedef intmax_t	(*t_print)(char**, va_list*, t_p*);
+t_print				ft_get_param(char c);
+
+intmax_t			ft_putnbr_front(uintmax_t j, char *base, t_p *p,\
+									char front);
+intmax_t			ft_putnbr_unsign(uintmax_t j, char *base, t_p *p,\
+										char *front);
 
 #endif

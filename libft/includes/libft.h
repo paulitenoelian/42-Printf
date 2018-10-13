@@ -6,7 +6,7 @@
 /*   By: npaulite <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/11 17:51:09 by npaulite          #+#    #+#             */
-/*   Updated: 2018/10/11 12:31:10 by npaulite         ###   ########.fr       */
+/*   Updated: 2018/10/13 13:24:14 by npaulite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,13 @@
 # include <unistd.h>
 # include <string.h>
 # include <stdlib.h>
-# include <wchar.h>
+# include <stddef.h>
+# define _ABS(x) x < 0 ? -x : x
+# define _NEGATIVE(x) x < 0 ? 1 : 0
+# define _DEC "0123456789"
+# define _OCT "01234567"
+# define _HEXU "0123456789ABCDEF"
+# define _HEXL "0123456789abcdef"
 # define BUFF_SIZE 4096
 
 typedef	struct		s_list
@@ -124,4 +130,8 @@ void				ft_putchars_fd(unsigned int c, int fd);
 void				ft_putstrs_fd(const char *s, int fd);
 void				ft_putendls_fd(const char *s, int fd);
 void				ft_putnbrs_fd(int n, int fd);
+void				ft_putnbr_u(uintmax_t nbr);
+void				ft_putnbr_u_fd(intmax_t nbr, int fd);
+void				ft_putnbr_base(intmax_t nbr, char *base);
+void				ft_putnbr_u_base_fd(uintmax_t nbr, char *base, int fd);
 #endif

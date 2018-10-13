@@ -6,7 +6,7 @@
 #    By: npaulite <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/04 09:48:51 by npaulite          #+#    #+#              #
-#    Updated: 2018/10/11 12:52:18 by npaulite         ###   ########.fr        #
+#    Updated: 2018/10/12 16:35:03 by npaulite         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,13 +15,10 @@ NAME = libftprintf.a
 CFLAGS = -Wall -Wextra -Werror
 CFLAGS += -I includes/
 
-SRC = char.c char_unicode.c check_funcs.c decimal.c\
-      format_write_funcs.c ft_itoa_base.c /ft_printf.c\
-      get_var_param.c hexadecimal.c \
-      octodecimal.c output_format_funcs.c percent.c\
-      pointer.c print_type.c service_funcs.c string.c\
-      type_processing.c unicode_to_string.c unsigned.c wrong_var.c\
-      cnt_bytes.c bonus_star.c
+SRC = ft_printf.c ft_params.c ft_null.c ft_printf_procent.c \
+      ft_tools.c ft_printf_int.c ft_printf_long.c ft_printf_char.c \
+      ft_printf_str.c ft_printf_hex.c ft_printf_octal.c ft_printf_unsign.c \
+      ft_printf_void.c \
 
 SRCS = $(addprefix srcs/, $(SRC))
 

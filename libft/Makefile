@@ -6,7 +6,7 @@
 #    By: npaulite <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/09 16:13:09 by npaulite          #+#    #+#              #
-#    Updated: 2018/10/11 13:06:21 by npaulite         ###   ########.fr        #
+#    Updated: 2018/10/12 16:54:45 by npaulite         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c\
 	ft_putwchar.c ft_putwstr.c ft_putnstr.c ft_putnwstr.c ft_put_error.c \
 	ft_free_str_arr.c ft_putchars.c	ft_putendls.c ft_putnbrs.c ft_putstrs.c \
 	ft_putchars_fd.c ft_putendls_fd.c ft_putnbrs_fd.c ft_putstrs_fd.c \
+	ft_putnbr_base.c ft_putnbr_u_fd.c ft_putnbr_u.c ft_putnbr_u_base_fd.c \
 
 OBJ = $(SRC:.c=.o)
 

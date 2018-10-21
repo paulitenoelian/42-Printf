@@ -6,7 +6,7 @@
 /*   By: npaulite <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 13:01:47 by npaulite          #+#    #+#             */
-/*   Updated: 2018/10/13 13:45:13 by npaulite         ###   ########.fr       */
+/*   Updated: 2018/10/21 07:53:55 by npaulite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ uintmax_t			ft_len_j(uintmax_t j, char *base, char *front, t_p *p);
 void				get_u(va_list *ap, t_p *p, uintmax_t *nbr);
 
 intmax_t			ft_null(char **str, va_list *ap, t_p *p);
-intmax_t			ft_printf_procent(char **str, va_list *ap, t_p *p);
+intmax_t			ft_printf_percent(char **str, va_list *ap, t_p *p);
 intmax_t			ft_printf_int(char **str, va_list *ap, t_p *p);
 intmax_t			ft_printf_long(char **str, va_list *ap, t_p *p);
 intmax_t			ft_printf_char(char **str, va_list *ap, t_p *p);

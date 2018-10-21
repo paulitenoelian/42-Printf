@@ -6,7 +6,7 @@
 /*   By: npaulite <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 13:03:57 by npaulite          #+#    #+#             */
-/*   Updated: 2018/10/12 16:37:31 by npaulite         ###   ########.fr       */
+/*   Updated: 2018/10/21 07:50:40 by npaulite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,5 @@ intmax_t	ft_printf_hex(char **str, va_list *ap, t_p *p)
 
 	get_u(ap, p, &u);
 	return (**str == 'X' ? ft_putnbr_unsign(u, _HEXU, p, "0X") :\
-							ft_putnbr_unsign(u, _HEXL, p, "0x"));
+				ft_putnbr_unsign(u, _HEXL, p, "0x"));
 }

@@ -6,7 +6,7 @@
 /*   By: npaulite <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 13:03:20 by npaulite          #+#    #+#             */
-/*   Updated: 2018/10/13 13:42:19 by npaulite         ###   ########.fr       */
+/*   Updated: 2018/10/21 07:54:50 by npaulite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_print			ft_get_param(char c)
 	{
 		if ((param = ft_memalloc(sizeof(*param) * 256)) != NULL)
 		{
-			param['%'] = &ft_printf_procent;
+			param['%'] = &ft_printf_percent;
 			param['i'] = &ft_printf_int;
 			param['d'] = &ft_printf_int;
 			param['D'] = &ft_printf_long;
@@ -52,7 +52,7 @@ static int		is_str(char **str)
 	return (0);
 }
 
-static ssize_t	ft_2(ssize_t rez, t_p *p, char **str, va_list *ap)
+static ssize_t	ft_param(ssize_t s, t_p *p, char **str, va_list *ap)
 {
 	t_print	func;
 
@@ -70,12 +70,12 @@ static ssize_t	ft_2(ssize_t rez, t_p *p, char **str, va_list *ap)
 		return (0);
 	if ((func = ft_get_param(**str)) == NULL)
 		func = ft_null;
-	rez = func(str, ap, p);
+	s = func(str, ap, p);
 	(*str)++;
-	return (rez);
+	return (s);
 }
 
-static int		ft_1(size_t rez, va_list *ap, const char *str)
+static int		ft_solve(size_t s, va_list *ap, const char *str)
 {
 	char	*next;
 	t_p		p;
@@ -83,26 +83,26 @@ static int		ft_1(size_t rez, va_list *ap, const char *str)
 
 	next = ft_strchr(str, '%');
 	if (*str == '\0')
-		return (rez);
+		return (s);
 	if (next == NULL)
-		return (rez + write(1, str, ft_strlen(str)));
+		return (s + write(1, str, ft_strlen(str)));
 	else if (next > str)
-		return (ft_1(rez + write(1, str, next - str), ap, next));
+		return (ft_solve(s + write(1, str, next - str), ap, next));
 	else
 	{
 		ft_bzero(&p, sizeof(p));
-		return ((r = ft_2(0, &p, (char **)&str, ap)) == -1 ? -1 : ft_1(rez +\
-					r, ap, str));
+		return ((r = ft_param(0, &p, (char **)&str, ap)) == -1 ? -1 :\
+				ft_solve(s + r, ap, str));
 	}
 }
 
 int				ft_printf(const char *format, ...)
 {
 	va_list	ap;
-	int		rez;
+	int		n;
 
 	va_start(ap, format);
-	rez = ft_1(0, &ap, format);
+	n = ft_solve(0, &ap, format);
 	va_end(ap);
-	return (rez);
+	return (n);
 }
